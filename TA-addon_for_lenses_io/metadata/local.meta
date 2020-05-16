@@ -1,0 +1,48 @@
+[props/tmp]
+owner = admin
+version = 8.0.3
+modtime = 1588802993.000108000
+
+[props/source%3A%3A...ta-addon_for_lenses_io%2A.log%2A]
+owner = admin
+version = 8.0.3
+modtime = 1588802993.270662000
+
+[props/source%3A%3A...ta_addon_for_lenses_io%2A.log%2A]
+owner = admin
+version = 8.0.3
+modtime = 1588802993.472260000
+
+[nav/default]
+version = 8.0.3
+modtime = 1588803446.648765000
+
+[app/install/install_source_checksum]
+version = 8.0.3
+modtime = 1588807873.568848000
+
+[passwords/credential%3A__REST_CREDENTIAL__%23TA-addon_for_lenses_io%23configs%2Fconf-ta_addon_for_lenses_io_settings%3Aadditional_parameters%60%60splunk_cred_sep%60%601%3A]
+owner = admin
+version = 8.0.3
+modtime = 1589049416.162724000
+
+[passwords/credential%3A__REST_CREDENTIAL__%23TA-addon_for_lenses_io%23configs%2Fconf-ta_addon_for_lenses_io_settings%3Aadditional_parameters%60%60splunk_cred_sep%60%602%3A]
+owner = admin
+version = 8.0.3
+modtime = 1589049416.181199000
+
+[ta_addon_for_lenses_io_settings/additional_parameters]
+version = 8.0.3
+modtime = 1589049416.187248000
+
+[app/ui]
+version = 8.0.3
+modtime = 1589047487.609016000
+
+[app/launcher]
+version = 8.0.3
+modtime = 1589047487.610403000
+
+[app/package/check_for_updates]
+version = 8.0.3
+modtime = 1589047487.611035000
