@@ -4,6 +4,15 @@
 
 This Addon allows you to query data in a Kafka topic or Elasticsearch index with a SQL command within Splunk. The App sends the query to Lenses.io and it uses Lenses' SQL Engine and permission model to fetch the data.
 
+It has been tested on Splunk 8.0.3 and Lenses.io 3.1. The script should work with both free versions of Lenses.io (easiest is to get free Cloud Sandbox environment which  includes an instance of Kafka at http://portal.lenses.io/. Alternatively you can use the Lenses.io "Box" docker container) and Splunk Enterprise or Splunk Cloud (https://www.splunk.com/en_us/download.html)
+
+The AddOn is at very early stages of development. It's biggest limitation is it's only designed to returned small data sets back to Splunk (around maximum of 1000 results). Please do not use in production but provide feedback to guillaume.ayme@gmail.com
+
+Improvements to be made:
++ Better error handling
++ Better security
++ Able to manage larger results sets
+
 ## Installation
 
 ### Pre-requisites 
@@ -18,6 +27,8 @@ This Addon allows you to query data in a Kafka topic or Elasticsearch index with
 ### Install Lenses.io Python on Splunk instance (Search Head in distributed environment)
 
 Follow the [Lenses.io documentation](https://docs.lenses.io/dev/python-lib/index.html)
+
+You must be using Python3
 
 ### Install the Lenses.io Addon
 
@@ -51,16 +62,47 @@ Go to a Search bar.
 
 The command for lenses is:
 
+```
 lensesiosearch
+```
 
 The search must be the first command in a search and prefixed with a pipe (|). Example: | lenses.io
 
 It takes one parameter which is the SQL command. 
 
+```
 | lensesiosearch sql="select currency, amount from cc_payments LIMIT 10"
+```
 
 If you're using Lenses Box, that exact query should work
 
 ## Troubleshooting
 
+### Test the script outside of Splunk
+
+If the custom command isn't working, you can test running the bin/lenses.py script which is the main script called by the lensesCustomCommandWrapper.py script outside of Splunk.  Connect to your Splunk instance and go to:
+
+```console
+cd $SPLUNK_HOME/etc/apps/TA-addon_for_lenses_io/bin
+```
+
+Create an environment variable with the value of the security token from Lenses.io. Again, ensure token is prefixed by the owner of the token in Lenses.io (in example below it's "Splunk2")
+
+```console
+export LENSES_TOKEN=Splunk2:b331cef8-55ad-71e5-8c7f-5fdbfe41d1e9
+```
+
+Run the command:
+
+```console
+python3 -E lenses.py -c LENSES_TOKEN -u https://amazing-bose.portal.lenses.io -s "select amount, currency from cc_payments LIMIT 100"
+```
+
+There should be a large standard out dump of raw data returned by the SQL command. If so, the script works.
+
+### Other troubleshooting
+
 Ensure you look at the search.log in the Search inspector (Under the "job" dropdown in a Splunk search bar)if you get any errors  
+
+For any issues with the App, contact guillaume.ayme@gmail.com, Guillaume Ayme on LinkedIn or @lemastergui on Twitter
+

@@ -2,6 +2,7 @@ import getopt
 import sys
 from lensesio.lenses import main as lenses
 import json
+import os
 
 credentials = ''
 lensesUrl = ''
@@ -10,11 +11,11 @@ sqlCommand = ''
 try:
    options, args = getopt.getopt(sys.argv[1:], "c:u:s:",["credentials=", "url=", "sql="])
 except getopt.GetoptError:
-   sys.exit( 'Lenses python command not correctly called. should be: lenses.py -c <credentials:service-token> -u <lensesUrl> -s <Sql command>')
-#   sys.exit(2)
+    sys.exit( 'Lenses python command not correctly called. should be: lenses.py -c <name of env variable hold token with format: service_owner:service-token> -u <lensesUrl> -s <Sql command>')
+# Get Options
 for name, value in options:
   if name in ('-c', '--credentials'):
-    credentials = value
+    credentials = os.getenv(value)
   if name in ('-u', '--url'):
     lensesUrl = value
   if name in ('-s', '--sql'):
