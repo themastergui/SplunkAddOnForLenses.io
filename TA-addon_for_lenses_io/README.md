@@ -2,6 +2,8 @@
 
 ## Overview
 
+In beta.
+
 This Addon allows you to query data in a Kafka topic or Elasticsearch index with a SQL command within Splunk. The App sends the query to Lenses.io and it uses Lenses' SQL Engine and permission model to fetch the data.
 
 It has been tested on Splunk 8.0.3 and Lenses.io 3.1. The script should work with both free versions of Lenses.io (easiest is to get free Cloud Sandbox environment which  includes an instance of Kafka at http://portal.lenses.io/. Alternatively you can use the Lenses.io "Box" docker container) and Splunk Enterprise or Splunk Cloud (https://www.splunk.com/en_us/download.html)
@@ -17,7 +19,7 @@ Improvements to be made:
 
 ### Pre-requisites 
 
-1. A working Lenses instance connected to at least a Kafka cluster. If you don't have your own Kafka cluster, you can use the all-in-one [Lenses Box Docker Container](https://lenses.io/downloads/lenses/?path=wizard-form) for free
+1. A working Lenses instance connected to at least a Kafka cluster. If you don't have your own Kafka cluster, you can use the all-in-one [Lenses Box Docker Container](https://lenses.io/downloads/lenses/?path=wizard-form) or the Lenses.io [Cloud Sandbox](http://portal.lenses.io/) for free
 
 2. An instance of Splunk. You can download [Splunk for free](https://www.splunk.com/en_us/download.html)
 
