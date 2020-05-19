@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+# Developped by guillaume.ayme@gmail.com. @lemastergui on Twitter
+# Script is main wrapper for Splunk custom command. Will call lenses.py script passing as arguments a SQL statement, target URL (Lenses.io instance) and env variable where the security token is stored. Before running the lenses.py script, it will take some settings from the ta_addon_for_lenses_io_settings.conf. See README for more details
+
 from __future__ import absolute_import, division, print_function, unicode_literals
 import sys
 import json
@@ -24,7 +27,7 @@ import splunklib.client as client
 from splunklib.searchcommands import dispatch, GeneratingCommand, Configuration, Option, validators
 
 @Configuration(generates_timeorder=True)
-class FooCommand(GeneratingCommand):
+class LensesCustomCommand(GeneratingCommand):
     """ %(synopsis)
     ##Syntax
     %(syntax)
@@ -35,7 +38,7 @@ class FooCommand(GeneratingCommand):
 
     def generate(self):
        sql = self.sql
-       _logger = getLogger("FooCommand")
+       _logger = getLogger("LensesCustomCommand")
        _logger.info("Running Lenses.io custom command")
 
        try:
@@ -62,7 +65,6 @@ class FooCommand(GeneratingCommand):
 #               _logger.error("Lenses.io token configured is is %s" %serviceTokenClear)
                serviceTokenJson = json.loads(serviceTokenClear)
                serviceToken  = serviceTokenJson['password']
-               _logger.error("foo")
              except Exception as e:
                _logger.error("e is %s" %e)
                _logger.warning("found an incorrect passord or  password that doesn't look like a token for Lenses.io. Ensure it has been set in Addon Configuration. Or otherwise may find another password that matches shortly... Also ensure you have entered the token correctly and it's prefixed with the name of the service account name such as <name>:<token>")
@@ -73,8 +75,11 @@ class FooCommand(GeneratingCommand):
       
        _logger.info("About to launch command. path is %s, token is **masked**, url is %s, sql is %s" %(lensesScriptPath,lensesUrl,sql))
     
-      # Now we can run our command
-       process = Popen([pythonPath, "-E", lensesScriptPath, "-c", serviceToken, "-u", lensesUrl, "-s", sql],stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+       #Save token in env variable. It will be accessed by lenses.py script later
+       os.environ['LENSES_TOKEN'] = serviceToken
+    
+      # Now we can run our command. We pass as arguments the name of the ENV Variable that holds the security token
+       process = Popen([pythonPath, "-E", lensesScriptPath, "-c", "LENSES_TOKEN" , "-u", lensesUrl, "-s", sql],stderr=subprocess.PIPE, stdout=subprocess.PIPE)
 
        try:
          outs, errs = process.communicate(timeout=lensesTimeout)
@@ -101,4 +106,4 @@ class FooCommand(GeneratingCommand):
          yield {'_serial': "1", '_time': int(result["metadata"]["timestamp"])/1000, '_raw': result}
        pass
 
-dispatch(FooCommand, sys.argv, sys.stdin, sys.stdout, __name__)
+dispatch(LensesCustomCommand, sys.argv, sys.stdin, sys.stdout, __name__)
