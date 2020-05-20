@@ -28,9 +28,46 @@ Improvements to be made:
 
 ### Install Lenses.io Python on Splunk instance (Search Head in distributed environment)
 
-Follow the [Lenses.io documentation](https://docs.lenses.io/dev/python-lib/index.html)
+You must use Python3.
 
-You must be using Python3
+First, install PIP3
+
+```console
+sudo apt install python3-pip 
+```
+
+Clone Lenses.io Python Client from Github
+
+```console
+sudo git clone https://github.com/lensesio/lenses-python.git
+```
+
+Enter into the lenses-python dir
+
+```console
+cd lenses-python
+```
+
+Build the Lenses.io Python lib
+
+```console
+sudo python3 setup.py sdist bdist_wheel
+```
+
+Install the lib
+
+```console
+sudo pip3 install dist/lensesio-3.0.0-py3-none-any.whlh
+```
+
+Install Pulsar lib
+
+```console
+sudo pip3 install pulsar
+```
+
+Full instructions can be found here [Lenses.io documentation](https://docs.lenses.io/dev/python-lib/index.html)
+
 
 ### Install the Lenses.io Addon
 
@@ -102,9 +139,30 @@ python3 -E lenses.py -c LENSES_TOKEN -u https://amazing-bose.portal.lenses.io -s
 
 There should be a large standard out dump of raw data returned by the SQL command. If so, the script works.
 
+### Pulsur Error when running search
+
+```console
+Traceback (most recent call last):
+ File "lenses.py", line 3, in <module>
+  from lensesio.lenses import main as lenses
+ File "/usr/local/lib/python3.6/dist-packages/lensesio/lenses.py", line 18, in <module>
+  from lensesio.pulsar.pulsar_client import SetupPulsar
+ File "/usr/local/lib/python3.6/dist-packages/lensesio/pulsar/pulsar_client.py", line 1, in <module>
+  import pulsar
+ModuleNotFoundError: No module named 'pulsar'
+```
+
+Make sure you have installed the Pulsar package in Python
+
+```console
+sudo pip3 install pulsar
+```
+
+
 ### Other troubleshooting
 
 Ensure you look at the search.log in the Search inspector (Under the "job" dropdown in a Splunk search bar)if you get any errors  
 
 For any issues with the App, contact guillaume.ayme@gmail.com, Guillaume Ayme on LinkedIn or @lemastergui on Twitter
+
 
