@@ -60,12 +60,6 @@ Install the lib
 sudo pip3 install dist/lensesio-3.0.0-py3-none-any.whl
 ```
 
-Install Pulsar lib
-
-```console
-sudo pip3 install pulsar
-```
-
 Full instructions can be found here [Lenses.io documentation](https://docs.lenses.io/dev/python-lib/index.html)
 
 
