@@ -19,7 +19,7 @@ Improvements to be made:
 
 ### Pre-requisites 
 
-1. A working Lenses instance connected to at least a Kafka cluster. If you don't have your own Kafka cluster, you can use the all-in-one Lenses Box [Kafka Docker Container](https://lenses.io/downloads/lenses/?path=wizard-form) or the Lenses.io [Cloud Sandbox](http://portal.lenses.io/) for free
+1. A working Lenses instance connected to at least a Kafka cluster. If you don't have your own Kafka cluster, you can use the all-in-one Lenses Box [Kafka Docker Container](https://lenses.io/apache-kafka-docker/) or the Lenses.io [Cloud Sandbox](http://portal.lenses.io/) for free
 
 2. An instance of Splunk. You can download [Splunk for free](https://www.splunk.com/en_us/download.html)
 
